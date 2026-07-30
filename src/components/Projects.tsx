@@ -19,7 +19,7 @@ export default function Projects() {
         {
             title: 'Discord Bot',
             description: 'Developed an interactive community bot featuring custom command handling, automated moderation utilities, and real-time event triggers.',
-            tags: ['Node.js', 'JavaScript', 'Discord API', 'Heroku'],
+            tags: ['Node.js', 'JavaScript', 'Discord API', 'Heroku', 'Cronjob'],
             date: '2023',
             github: null
         },
