@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import sendImage from '../assets/send.png';
 
 export default function Experience() {
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const experiences = [
         {
             id: 'ford',
             role: 'Middleware Software Developer',
             company: 'Ford Motor Company',
             location: 'Ottawa, ON',
-            date: 'May 2023 - Sept 2023',
+            date: 'May 2023 - Aug 2023',
             duration: '4 Months',
             type: 'Co-op',
             points: [
@@ -22,8 +25,8 @@ export default function Experience() {
             role: 'Backend Software Developer',
             company: 'Bluwave-AI',
             location: 'Ottawa, ON',
-            date: 'May 2022 - Sep 2022',
-            duration: '5 Months',
+            date: 'May 2022 - Aug 2022',
+            duration: '4 Months',
             type: 'Co-op',
             points: [
                 'Built a data ingestion pipeline using Python, Node.js, and OpenCV to digitize legacy forecast charts, establishing a second validated data source used to cross-check and supplement the primary training dataset.',
@@ -45,7 +48,7 @@ export default function Experience() {
                 'Shipped 5 core feature updates to an aircraft information system on Azure, gathering requirements through stakeholder meetings to streamline internal reporting workflows.',
                 'Architected a data access layer using the DAO pattern in ASP.NET, decoupling business logic from data persistence to improve modularity, simplify unit testing, and eliminate duplicate query code.'
             ],
-            tags: ['Microsoft SQL Server', 'Azure', 'ASP.NET', 'DAO Pattern']
+            tags: ['C#', 'Microsoft SQL Server', 'XML', 'Azure', 'ASP.NET', 'DAO Pattern']
         },
         {
             id: 'arkalumen',
@@ -59,16 +62,44 @@ export default function Experience() {
                 'Designed an extensible hardware abstraction layer in C#/MVVM Light Toolkit, enabling support for 10+ LED controller hardware models without requiring core product rewrites.',
                 'Built real-time synchronization middleware between Firebase and a desktop application, syncing configuration data within seconds across 50+ customer deployments.'
             ],
-            tags: ['C#', 'MVVM', 'Firebase', 'Hardware Abstraction']
+            tags: ['C#', 'MVVM', 'Firebase']
         }
     ];
+
+    const [visibleItems, setVisibleItems] = useState({});
+    const itemRefs = useRef([]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 50);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const index = entry.target.getAttribute('data-index');
+                        setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
+
+        itemRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        return () => {
+            clearTimeout(timer);
+            observer.disconnect();
+        };
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col items-center">
+        <div className={`max-w-6xl mx-auto px-6 py-20 flex flex-col items-center transition-all duration-700 ease-out transform ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
 
             <div className="text-center mb-16">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight inline-block relative pb-3">
@@ -87,15 +118,22 @@ export default function Experience() {
                 <div className="space-y-12">
                     {experiences.map((exp, index) => {
                         const isLeft = index % 2 === 0;
+                        const isVisible = visibleItems[index];
 
                         return (
-                            <div key={exp.id} className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                            <div
+                                key={exp.id}
+                                ref={(el) => (itemRefs.current[index] = el)}
+                                data-index={index}
+                                className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''} transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                                    }`}
+                            >
 
                                 <div className="w-full md:w-[53%]">
                                     <div className="bg-white border border-slate-200 p-8 rounded-2xl shadow-lg text-left transition-all duration-300 hover:border-blue-300 flex flex-col justify-between h-full">
 
                                         <div>
-                                            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+                                            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-1">
                                                 <h3 className="text-slate-900 font-bold text-xl leading-snug">{exp.role}</h3>
                                                 <div className="flex flex-col items-start sm:items-end gap-1.5 shrink-0">
                                                     <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 px-3 py-1.5 rounded-xl border border-blue-200 text-center leading-tight whitespace-nowrap">
@@ -147,7 +185,7 @@ export default function Experience() {
                                 </div>
 
                                 <div className="hidden md:flex md:w-[14%] justify-center relative">
-                                    <div className="w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md z-10"></div>
+                                    <div className={`w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md z-10 transition-transform duration-500 delay-200 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
                                 </div>
 
                                 <div className="hidden md:block md:w-[53%]"></div>
@@ -159,13 +197,12 @@ export default function Experience() {
 
             </div>
 
-            {/* Back to Top Button */}
             <div className="mt-16">
                 <button
                     onClick={scrollToTop}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 px-5 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="group inline-flex items-center gap-2 bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200 hover:border-blue-600 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 duration-200 whitespace-nowrap cursor-pointer"
                 >
-                    ↑ Back to Top
+                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert rotate-[-90deg]" />
                 </button>
             </div>
         </div>

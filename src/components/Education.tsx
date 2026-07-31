@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import sendImage from '../assets/send.png';
 
 export default function Education() {
+    const [isLoaded, setIsLoaded] = useState(false);
+
     const educationList = [
         {
             degree: 'Online Master of Science in Computer Science',
             institution: 'Georgia Institute of Technology',
             specialization: 'Artificial Intelligence Specialization • GPA 4.0',
-            location: 'Atlanta, GA (Online)',
+            location: 'Atlanta, GA',
             date: 'Jan 2026 - Present',
-            description: 'Pursuing advanced graduate coursework focusing on artificial intelligence, machine learning systems, and computational algorithms.',
+            description: 'Pursuing advanced graduate level coursework focusing on artificial intelligence, machine learning systems, and computational algorithms.',
             tags: ['Artificial Intelligence', 'Machine Learning', 'Computer Science']
         },
         {
             degree: 'Bachelor of Applied Science, Software Engineering',
             institution: 'University of Ottawa',
-            specialization: 'GPA 3.9/4.0 • 7x Dean\'s Honours List',
+            specialization: "GPA 3.9/4.0 • 7x Dean's Honours List",
             location: 'Ottawa, ON',
             date: 'Sept 2019 - July 2024',
             description: 'Completed a comprehensive software engineering curriculum maintaining top academic standing across multiple semesters.',
@@ -22,12 +25,40 @@ export default function Education() {
         }
     ];
 
+    const [visibleItems, setVisibleItems] = useState({});
+    const itemRefs = useRef([]);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 50);
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const index = entry.target.getAttribute('data-index');
+                        setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                    }
+                });
+            },
+            { threshold: 0.15 }
+        );
+
+        itemRefs.current.forEach((ref) => {
+            if (ref) observer.observe(ref);
+        });
+
+        return () => {
+            clearTimeout(timer);
+            observer.disconnect();
+        };
+    }, []);
+
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
-        <div className="max-w-6xl mx-auto px-6 py-20 flex flex-col items-center">
+        <div className={`max-w-6xl mx-auto px-6 py-20 flex flex-col items-center transition-all duration-700 ease-out transform ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
 
             <div className="text-center mb-16">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight inline-block relative pb-3">
@@ -46,8 +77,16 @@ export default function Education() {
                 <div className="space-y-12">
                     {educationList.map((edu, index) => {
                         const isLeft = index % 2 === 0;
+                        const isVisible = visibleItems[index];
+
                         return (
-                            <div key={edu.degree} className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''}`}>
+                            <div
+                                key={edu.degree}
+                                ref={(el) => (itemRefs.current[index] = el)}
+                                data-index={index}
+                                className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''} transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                                    }`}
+                            >
 
                                 <div className="w-full md:w-[53%]">
                                     <div className="bg-white border border-slate-200 p-8 rounded-2xl shadow-lg text-left transition-all hover:border-blue-300 flex flex-col justify-between h-full">
@@ -87,7 +126,7 @@ export default function Education() {
                                 </div>
 
                                 <div className="hidden md:flex md:w-[14%] justify-center relative">
-                                    <div className="w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md z-10"></div>
+                                    <div className={`w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md z-10 transition-transform duration-500 delay-200 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
                                 </div>
 
                                 <div className="hidden md:block md:w-[53%]"></div>
@@ -102,9 +141,9 @@ export default function Education() {
             <div className="mt-16">
                 <button
                     onClick={scrollToTop}
-                    className="inline-flex items-center gap-2 text-xs font-semibold text-slate-700 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 border border-slate-200 hover:border-blue-200 px-5 py-2.5 rounded-xl transition-all shadow-sm cursor-pointer"
+                    className="group inline-flex items-center gap-2 bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200 hover:border-blue-600 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 duration-200 whitespace-nowrap cursor-pointer"
                 >
-                    ↑ Back to Top
+                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert object-contain rotate-[-90deg]" />
                 </button>
             </div>
         </div>

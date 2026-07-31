@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function Contact() {
+    const [isLoaded, setIsLoaded] = useState(false);
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+    useEffect(() => {
+        const timer = setTimeout(() => setIsLoaded(true), 50);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -36,7 +42,7 @@ export default function Contact() {
     };
 
     return (
-        <div className="max-w-4xl mx-auto px-6 py-16 flex flex-col items-center text-center">
+        <div className={`max-w-4xl mx-auto px-6 py-16 flex flex-col items-center text-center transition-all duration-700 ease-out transform ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
 
             <div className="mb-10">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight inline-block relative pb-3">
@@ -65,7 +71,7 @@ export default function Contact() {
                                 setSubmitted(false);
                                 setFormData({ name: '', email: '', message: '' });
                             }}
-                            className="mt-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-6 py-2.5 rounded-xl text-sm transition-colors border border-slate-200"
+                            className="mt-6 bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium px-6 py-2.5 rounded-xl text-sm transition-colors border border-slate-200 cursor-pointer"
                         >
                             Send Another Message
                         </button>
@@ -114,7 +120,7 @@ export default function Contact() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold py-3 rounded-xl text-sm transition-colors shadow-sm"
+                            className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white font-semibold py-3 rounded-xl text-sm transition-colors shadow-sm cursor-pointer"
                         >
                             {loading ? 'Sending...' : 'Send Message'}
                         </button>

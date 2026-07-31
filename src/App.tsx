@@ -19,12 +19,15 @@ function Navbar() {
 
   return (
     <header className="w-full bg-white border-b border-slate-100 py-6 px-8 md:px-16 flex justify-between items-center shadow-xs">
-      <div className="text-slate-900 font-bold text-lg tracking-tight">
+      <Link
+        to="/"
+        className="text-slate-900 font-bold text-lg tracking-tight hover:text-blue-600 transition-colors cursor-pointer"
+      >
         Andy Ung
-      </div>
+      </Link>
 
       <nav className="flex items-center gap-6 md:gap-8 overflow-x-auto">
-        <Link to="/" className={linkStyle('/')}>Home</Link>
+        <Link to="/" className={linkStyle('/')}>About</Link>
         <Link to="/skills" className={linkStyle('/skills')}>Skills</Link>
         <Link to="/experience" className={linkStyle('/experience')}>Experience</Link>
         <Link to="/education" className={linkStyle('/education')}>Education</Link>
