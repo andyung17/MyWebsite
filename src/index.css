@@ -1,17 +1,7 @@
 @import "tailwindcss";
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 
-.dark body {
-  background-color: #020617;
-  /* slate-950 */
-  color: #f8fafc;
-  /* slate-50 */
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
-:root,
-body,
 html {
   margin: 0 !important;
   padding: 0 !important;
@@ -22,12 +12,18 @@ html {
   font-family: system-ui, -apple-system, sans-serif;
 }
 
+html.dark {
+  background-color: #030712 !important;
+  color: #f8fafc !important;
+}
+
 #root {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
   min-height: 100vh !important;
-  background-color: #ffffff !important;
+  background-color: inherit !important;
+
 }
 
 h1,
@@ -37,6 +33,15 @@ h4,
 h5,
 h6 {
   color: #000000 !important;
+}
+
+html.dark h1,
+html.dark h2,
+html.dark h3,
+html.dark h4,
+html.dark h5,
+html.dark h6 {
+  color: #ffffff !important;
 }
 
 :root {

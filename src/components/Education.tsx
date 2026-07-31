@@ -64,18 +64,18 @@ export default function Education() {
         <div className={`max-w-6xl mx-auto px-6 py-20 flex flex-col items-center transition-all duration-700 ease-out transform ${isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'}`}>
 
             <div className="text-center mb-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight inline-block relative pb-3">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-slate-900 [.dark_&]:text-white tracking-tight inline-block relative pb-3">
                     Education
-                    <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-600 rounded-full"></span>
+                    <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-600 dark:bg-blue-400 rounded-full"></span>
                 </h1>
-                <p className="text-slate-600 text-sm md:text-base mt-4 max-w-lg">
+                <p className="text-slate-600 dark:text-slate-300 text-sm md:text-base mt-4 max-w-lg">
                     My academic credentials and educational background.
                 </p>
             </div>
 
             <div className="relative w-full max-w-4xl">
 
-                <div className="absolute left-1/2 transform -translate-x-1/2 top-4 bottom-4 w-0.5 bg-slate-200 hidden md:block"></div>
+                <div className="absolute left-1/2 transform -translate-x-1/2 top-4 bottom-4 w-0.5 bg-slate-200 dark:bg-slate-800 hidden md:block"></div>
 
                 <div className="space-y-12">
                     {educationList.map((edu, index) => {
@@ -92,33 +92,33 @@ export default function Education() {
                             >
 
                                 <div className="w-full md:w-[53%]">
-                                    <div className="bg-white border border-slate-200 p-8 rounded-2xl shadow-lg text-left transition-all hover:border-blue-300 flex flex-col justify-between h-full">
+                                    <div className="bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 p-8 rounded-2xl shadow-lg text-left transition-all duration-300 hover:border-blue-300 dark:hover:border-blue-500 flex flex-col justify-between h-full">
 
                                         <div>
                                             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-2">
-                                                <h3 className="text-slate-900 font-bold text-xl leading-snug">{edu.degree}</h3>
-                                                <span className="text-[11px] font-semibold bg-blue-50 text-blue-700 px-3 py-1.5 rounded-xl border border-blue-200 text-center leading-tight self-start sm:self-auto whitespace-nowrap">
+                                                <h3 className="text-slate-900 dark:text-white font-bold text-xl leading-snug">{edu.degree}</h3>
+                                                <span className="text-[11px] font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 px-3 py-1.5 rounded-xl border border-blue-200 dark:border-blue-900 text-center leading-tight self-start sm:self-auto whitespace-nowrap">
                                                     {edu.date}
                                                 </span>
                                             </div>
 
-                                            <div className="text-blue-600 font-semibold text-sm mb-1">
-                                                {edu.institution} <span className="text-slate-400 font-normal">• {edu.location}</span>
+                                            <div className="text-blue-600 dark:text-blue-400 font-semibold text-sm mb-1">
+                                                {edu.institution} <span className="text-slate-400 dark:text-slate-500 font-normal">• {edu.location}</span>
                                             </div>
 
-                                            <div className="text-xs font-medium text-slate-500 mb-4">
+                                            <div className="text-xs font-medium text-slate-500 dark:text-slate-400 mb-4">
                                                 {edu.specialization}
                                             </div>
 
-                                            <p className="text-slate-600 text-sm leading-relaxed mb-6">
+                                            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
                                                 {edu.description}
                                             </p>
                                         </div>
 
-                                        <div className="pt-4 border-t border-slate-100 mt-auto">
+                                        <div className="pt-4 border-t border-slate-100 dark:border-slate-800 mt-auto">
                                             <div className="flex flex-wrap gap-2">
                                                 {edu.tags.map(tag => (
-                                                    <span key={tag} className="text-xs bg-slate-100 text-slate-700 px-3 py-1 rounded-full border border-slate-200 font-medium">
+                                                    <span key={tag} className="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-3 py-1 rounded-full border border-slate-200 dark:border-slate-700 font-medium">
                                                         {tag}
                                                     </span>
                                                 ))}
@@ -129,7 +129,7 @@ export default function Education() {
                                 </div>
 
                                 <div className="hidden md:flex md:w-[14%] justify-center relative">
-                                    <div className={`w-4 h-4 rounded-full bg-blue-600 border-4 border-white shadow-md z-10 transition-transform duration-500 delay-200 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
+                                    <div className={`w-4 h-4 rounded-full bg-blue-600 dark:bg-blue-400 border-4 border-white dark:border-slate-950 shadow-md z-10 transition-transform duration-500 delay-200 ${isVisible ? 'scale-100' : 'scale-0'}`}></div>
                                 </div>
 
                                 <div className="hidden md:block md:w-[53%]"></div>
@@ -144,9 +144,9 @@ export default function Education() {
             <div className="mt-16">
                 <button
                     onClick={scrollToTop}
-                    className="group inline-flex items-center gap-2 bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200 hover:border-blue-600 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 duration-200 whitespace-nowrap cursor-pointer"
+                    className="group inline-flex items-center gap-2 bg-white dark:bg-slate-800 hover:bg-blue-600 dark:hover:bg-blue-600 text-slate-700 dark:text-slate-200 hover:text-white border border-slate-200 dark:border-slate-700 hover:border-blue-600 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 duration-200 whitespace-nowrap cursor-pointer"
                 >
-                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert object-contain rotate-[-90deg]" />
+                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert rotate-[-90deg]" />
                 </button>
             </div>
         </div>
