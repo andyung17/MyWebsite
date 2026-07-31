@@ -1,5 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import sendImage from '../assets/send.png';
+import React from 'react';
 
 export default function Projects() {
     const [isLoaded, setIsLoaded] = useState(false);
@@ -55,8 +56,8 @@ export default function Projects() {
         }
     ];
 
-    const [visibleItems, setVisibleItems] = useState({});
-    const itemRefs = useRef([]);
+    const [visibleItems, setVisibleItems] = useState<Record<number, boolean>>({});
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoaded(true), 50);
@@ -65,8 +66,11 @@ export default function Projects() {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const index = entry.target.getAttribute('data-index');
-                        setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        const indexStr = entry.target.getAttribute('data-index');
+                        if (indexStr !== null) {
+                            const index = Number(indexStr);
+                            setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        }
                     }
                 });
             },
@@ -109,7 +113,7 @@ export default function Projects() {
                     return (
                         <React.Fragment key={project.title}>
                             <div
-                                ref={(el) => (itemRefs.current[index] = el)}
+                                ref={(el) => { itemRefs.current[index] = el; }}
                                 data-index={index}
                                 className={`w-full flex ${isRight ? 'justify-end md:pr-4' : 'justify-start md:pl-4'} transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                                     }`}

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import sendImage from '../assets/send.png';
 
 export default function Experience() {
@@ -66,8 +66,8 @@ export default function Experience() {
         }
     ];
 
-    const [visibleItems, setVisibleItems] = useState({});
-    const itemRefs = useRef([]);
+    const [visibleItems, setVisibleItems] = useState<Record<number, boolean>>({});
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoaded(true), 50);
@@ -76,8 +76,11 @@ export default function Experience() {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const index = entry.target.getAttribute('data-index');
-                        setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        const indexStr = entry.target.getAttribute('data-index');
+                        if (indexStr !== null) {
+                            const index = Number(indexStr);
+                            setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        }
                     }
                 });
             },
@@ -123,7 +126,7 @@ export default function Experience() {
                         return (
                             <div
                                 key={exp.id}
-                                ref={(el) => (itemRefs.current[index] = el)}
+                                ref={(el) => { itemRefs.current[index] = el; }}
                                 data-index={index}
                                 className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''} transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                                     }`}
@@ -202,7 +205,7 @@ export default function Experience() {
                     onClick={scrollToTop}
                     className="group inline-flex items-center gap-2 bg-white hover:bg-blue-600 text-slate-700 hover:text-white border border-slate-200 hover:border-blue-600 text-xs font-semibold px-4 py-2.5 rounded-xl shadow-sm transition-all hover:scale-105 active:scale-95 duration-200 whitespace-nowrap cursor-pointer"
                 >
-                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert rotate-[-90deg]" />
+                    Back to Top <img src={sendImage} alt="Send icon" className="w-3.5 h-3.5 object-contain transition-all duration-300 group-hover:brightness-0 group-hover:invert object-contain rotate-[-90deg]" />
                 </button>
             </div>
         </div>

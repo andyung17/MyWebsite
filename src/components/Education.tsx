@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import sendImage from '../assets/send.png';
 
 export default function Education() {
@@ -25,8 +25,8 @@ export default function Education() {
         }
     ];
 
-    const [visibleItems, setVisibleItems] = useState({});
-    const itemRefs = useRef([]);
+    const [visibleItems, setVisibleItems] = useState<Record<number, boolean>>({});
+    const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
 
     useEffect(() => {
         const timer = setTimeout(() => setIsLoaded(true), 50);
@@ -35,8 +35,11 @@ export default function Education() {
             (entries) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        const index = entry.target.getAttribute('data-index');
-                        setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        const indexStr = entry.target.getAttribute('data-index');
+                        if (indexStr !== null) {
+                            const index = Number(indexStr);
+                            setVisibleItems((prev) => ({ ...prev, [index]: true }));
+                        }
                     }
                 });
             },
@@ -82,7 +85,7 @@ export default function Education() {
                         return (
                             <div
                                 key={edu.degree}
-                                ref={(el) => (itemRefs.current[index] = el)}
+                                ref={(el) => { itemRefs.current[index] = el; }}
                                 data-index={index}
                                 className={`flex flex-col md:flex-row items-center w-full ${isLeft ? 'md:flex-row-reverse' : ''} transition-all duration-700 ease-out transform ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
                                     }`}

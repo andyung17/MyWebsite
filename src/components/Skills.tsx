@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import sendImage from '../assets/send.png';
 import backendImage from '../assets/backend.png';

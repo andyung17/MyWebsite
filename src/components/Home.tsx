@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import faceImage from '../assets/face.jpeg';
 import letterImage from '../assets/letter.png';
@@ -19,7 +19,7 @@ export default function About() {
     useEffect(() => {
         let currentIndex = 0;
         let isDeleting = false;
-        let timeoutId: NodeJS.Timeout;
+        let timeoutId: ReturnType<typeof setTimeout>;
 
         const animate = () => {
             if (!isDeleting) {
