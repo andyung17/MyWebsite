@@ -19,7 +19,7 @@ export default function Projects() {
             align: 'left'
         },
         {
-            title: 'Machine Learning Genre Recommendation Engine',
+            title: 'Machine Learning Game Recommendation Engine',
             description: 'A Python-based recommendation engine utilizing Scikit-Learn to process game details, tags, price, and vector similarity matrices to find recommendations.',
             tags: ['Python', 'Scikit-Learn', 'Machine Learning'],
             date: '2026 - Present',
