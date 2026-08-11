@@ -16,18 +16,20 @@ export default function Projects() {
             bgAccent: 'bg-blue-50/70 dark:bg-blue-950/40',
             hoverColor: 'hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-100/70 dark:hover:bg-blue-900/40',
             buttonHover: 'hover:bg-blue-600 hover:border-blue-600',
+            ribbonColor: 'bg-blue-400 dark:bg-blue-500',
             align: 'left'
         },
         {
             title: 'Machine Learning Game Recommendation Engine',
             description: 'A Python-based recommendation engine utilizing Scikit-Learn to process game details, tags, price, and vector similarity matrices to find recommendations.',
             tags: ['Python', 'Scikit-Learn', 'Machine Learning'],
-            date: '2026 - Present',
+            date: '2026',
             github: 'https://github.com/andyung17/Genre-Recommendation-Model',
             color: 'border-l-emerald-400 dark:border-l-emerald-500',
             bgAccent: 'bg-emerald-50/70 dark:bg-emerald-950/40',
             hoverColor: 'hover:border-emerald-400 dark:hover:border-emerald-500 hover:bg-emerald-100/70 dark:hover:bg-emerald-900/40',
             buttonHover: 'hover:bg-emerald-600 hover:border-emerald-600',
+            ribbonColor: 'bg-emerald-400 dark:bg-emerald-500',
             align: 'right'
         },
         {
@@ -40,6 +42,7 @@ export default function Projects() {
             bgAccent: 'bg-indigo-50/70 dark:bg-indigo-950/40',
             hoverColor: 'hover:border-indigo-400 dark:hover:border-indigo-500 hover:bg-indigo-100/70 dark:hover:bg-indigo-900/40',
             buttonHover: 'hover:bg-indigo-600 hover:border-indigo-600',
+            ribbonColor: 'bg-indigo-400 dark:bg-indigo-500',
             align: 'left'
         },
         {
@@ -52,6 +55,7 @@ export default function Projects() {
             bgAccent: 'bg-rose-50/70 dark:bg-rose-950/40',
             hoverColor: 'hover:border-rose-400 dark:hover:border-rose-500 hover:bg-rose-100/70 dark:hover:bg-rose-900/40',
             buttonHover: 'hover:bg-rose-600 hover:border-rose-600',
+            ribbonColor: 'bg-rose-400 dark:bg-rose-500',
             align: 'right'
         }
     ];
@@ -119,8 +123,16 @@ export default function Projects() {
                                     }`}
                             >
                                 <div
-                                    className={`w-full md:w-[70%] relative ${project.bgAccent} border-2 border-l-4 ${project.color} border-slate-200 dark:border-slate-800 ${project.hoverColor} rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col`}
+                                    className={`w-full md:w-[70%] relative ${project.bgAccent} border-2 border-l-4 ${project.color} border-slate-200 dark:border-slate-800 ${project.hoverColor} rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col group/card`}
                                 >
+                                    {/* Bookmark ribbon */}
+                                    <div
+                                        className={`absolute top-0 right-8 w-8 h-14 ${project.ribbonColor} z-20 shadow-md transition-transform duration-300 group-hover/card:-translate-y-0.5`}
+                                        style={{
+                                            clipPath: 'polygon(0 0, 100% 0, 100% 100%, 50% 75%, 0 100%)'
+                                        }}
+                                    />
+
                                     <div className="px-8 pt-8 pb-6 flex flex-col relative z-10">
                                         <h3 className="text-slate-900 dark:text-white font-bold text-xl leading-snug mb-3 text-center">
                                             {project.title}
