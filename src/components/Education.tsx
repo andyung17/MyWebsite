@@ -15,6 +15,15 @@ export default function Education() {
             tags: ['Artificial Intelligence', 'Machine Learning', 'Computer Science']
         },
         {
+            degree: 'Graduate Certificate in Cloud Development and Operations',
+            institution: 'Algonquin College',
+            specialization: "Cloud Computing",
+            location: 'Ottawa, ON',
+            date: 'Sept 2026 - Present',
+            description: 'Pursuing advanced graduate level coursework focusing on cloud development and operations.',
+            tags: ['Cloud Computing', 'DevOps', 'Azure', 'AWS', 'GCP']
+        },
+        {
             degree: 'Bachelor of Applied Science, Software Engineering',
             institution: 'University of Ottawa',
             specialization: "GPA 3.9/4.0 • 7x Dean's Honours List",

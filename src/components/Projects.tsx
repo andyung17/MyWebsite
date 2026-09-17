@@ -10,7 +10,7 @@ export default function Projects() {
             title: 'Steam Profile Analytics',
             description: 'Personal dashboard that tracks Steam playtime and provides key personal analytics with genre recommendations',
             tags: ['Vue.js', 'TypeScript', 'Python', 'Prisma', 'PostgreSQL'],
-            date: '2026 - Present',
+            date: '2026',
             github: 'https://github.com/andyung17/SteamProfileTrends',
             color: 'border-l-blue-400 dark:border-l-blue-500',
             bgAccent: 'bg-blue-50/70 dark:bg-blue-950/40',

@@ -62,7 +62,7 @@ export default function About() {
                     <span className="absolute bottom-0 left-0 w-full h-1 bg-blue-600 dark:bg-blue-400 rounded-full"></span>
                 </h1>
                 <p className="text-slate-700 dark:text-slate-300 text-lg max-w-2xl mx-auto mb-6">
-                    Software Engineer & AI Specialist pursuing an Online Master in Computer Science at Georgia Institute of Technology
+                    Software Engineer & AI Specialist pursuing a Master in Computer Science at Georgia Institute of Technology
                 </p>
 
                 <div className="flex items-center gap-3 mt-2">
@@ -122,7 +122,7 @@ export default function About() {
 
                 <div className="mb-6">
                     <p className="text-slate-700 dark:text-slate-200 leading-relaxed text-sm sm:text-base">
-                        Passionate about building scalable backend services, full-stack web applications, and artificial intelligence models. Currently expanding technical knowledge through a Online Master of Science in Computer Science (OMSCS) program at Georgia Tech, specializing in Artificial Intelligence.
+                        Passionate about building scalable backend services, full-stack web applications, and artificial intelligence models. Currently expanding technical knowledge through a Master of Science in Computer Science (OMSCS) program at Georgia Tech, specializing in Artificial Intelligence.
                     </p>
                 </div>
 
